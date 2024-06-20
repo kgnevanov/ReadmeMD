@@ -1,0 +1,91 @@
+Задача 1
+quote_1 = 'Работает? Не трогай'
+quote_2 = 'Если твой код работает, значит это хороший код'
+quote_3 = 'Лень - главное достоинство программиста'
+
+def penult_word(message):
+    word_list = message
+    return message.split()[-3]
+
+# Вызовы функции готовы к работе, не изменяйте их!
+
+# Вызываем функцию penult_word с аргументом quote_1 и печатаем результат её работы.
+print(penult_word(quote_1))
+
+# То же, но с аргументом quote_2.
+print(penult_word(quote_2))
+
+# То же с аргументом quote_3.
+print(penult_word(quote_3))
+
+
+Задача 2
+def check_query(query):
+    request =  (query.split())
+    if request[0] == 'Анфиса,': return 'запрос к Анфисе'
+    else: return 'запрос к кому-то ещё'
+
+# дальше следует код, вызывающий вашу функцию; не изменяйте его:
+queries = [
+    'Анфиса, сколько у меня друзей?',
+    'Андрей, ну где ты был?',
+    'Андрей, ну обними меня скорей!',
+    'Анфиса, кто все мои друзья?'
+]
+
+for q in queries:
+    result = check_query(q)
+    print(q, '-', result)
+
+    Задача 3
+    def check_query(query):
+    request =  (query.split ())
+    #print (request)
+    #print (request[-1])
+    if request[-1] == 'друзей?': return ' '.join(request[1:])
+    elif request[-1] == 'был?': return ' '.join(request[1:])
+    elif request[-1] == 'скорей!': return ' '.join(request[1:])
+    return ' '.join(request[1:])
+
+# дальше следует код, вызывающий вашу функцию; не изменяйте его:
+queries = [
+    'Анфиса, сколько у меня друзей?',
+    'Андрей, ну где ты был?',
+    'Андрей, ну обними меня скорей!',
+    'Анфиса, кто все мои друзья?'
+]
+
+for q in queries:
+    result = check_query(q)
+    print(q, '-', result)
+
+    Задача 4
+    DATABASE = { 
+'Серёга': 'Омск', 
+'Соня': 'Москва', 
+'Миша': 'Москва', 
+'Дима': 'Челябинск', 
+'Алина': 'Красноярск', 
+'Егор': 'Пермь', 
+'Коля': 'Красноярск' 
+} 
+ 
+def process_anfisa(query): 
+    if query == 'Сколько у меня друзей?': 
+        count = len(DATABASE) 
+        return 'У тебя ' + str(count) + ' друзей.' 
+    elif query == 'Кто все мои друзья?': 
+        friends_string = ", ".join(DATABASE.keys()) 
+        return 'Твои друзья: ' + friends_string 
+    elif query == 'Где все мои друзья?': 
+        unique_cities = set(DATABASE.values()) 
+        cities_string = ', '.join(unique_cities) 
+        return 'Твои друзья в городах: ' + cities_string 
+    else: 
+        return '<неизвестный запрос>' 
+ 
+ 
+print('Привет, я Анфиса!') 
+print(process_anfisa('Сколько у меня друзей?')) 
+print(process_anfisa('Кто все мои друзья?')) 
+print(process_anfisa('Где все мои друзья?'))

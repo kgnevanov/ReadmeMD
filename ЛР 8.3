@@ -1,0 +1,249 @@
+Задача 1
+def show_meteo(temperature, weather):
+    print(f'Сейчас {weather}, на градуснике {temperature}.')
+show_meteo(24, 'облачно')
+
+Задача 2
+def format_text(messages_count):
+    remainder = messages_count % 10
+    if messages_count == 0:
+        return 'нет новых сообщений'
+    elif remainder == 0 or remainder >= 5 or (10 <= messages_count <= 19):
+        return f'{messages_count} новых сообщений'
+    elif remainder == 1:
+        return f'{messages_count} новое сообщение'
+    else:
+        return f'{messages_count} новых сообщения'
+
+    
+def print_count(messages_count):
+    text = format_text(messages_count)
+    print(f'У вас {text}.')
+
+    
+print_count(0)
+print_count(1)
+print_count(4)
+print_count(5)
+print_count(12)
+print_count(22)
+print_count(25)
+
+Задача 3
+def print_time(hour, minute, second):
+    print (f'На часах {hour}:{minute}:{second}' )  # аргумент должен содержать f-строку
+
+print_time('19', '28', '06')
+
+Задача 4
+def calc_stat(listened):  # от англ. calculate statistics, посчитать статистику
+        return (f'Вы прослушали {len(listened)} песен.') # напишите код функции calc_stat
+        
+print(calc_stat([193, 148, 210, 144, 174, 159, 163, 189, 230, 204]))
+
+Задача 5
+def calc_stat(listened):  # от англ. calculate statistics, посчитать статистику
+    T = 0
+    for i in range (len (listened)):
+        T+= int (listened[i])
+    return (f'Вы прослушали {len(listened)} песен, общей продолжительностью {T//60} минут и {T%60} секунд.')  # напишите код функции calc_stat
+
+print(calc_stat([193, 148, 210, 144, 174, 159, 163, 189, 230, 204]))
+
+Задача 6
+DATABASE =  { 
+
+'Серёга': 'Омск',
+
+'Соня': 'Москва',
+
+'Миша': 'Москва',
+
+'Дима': 'Челябинск',
+
+'Алина': 'Красноярск',
+
+'Егор': 'Пермь',
+
+'Коля': 'Красноярск'
+
+} 
+
+
+def process_anfisa(query):
+if query == 'Сколько у меня друзей?':
+count = len(DATABASE)
+return f'У тебя {count} друзей.'
+elif query == 'Кто все мои друзья?':
+friends_string = ', '.join(DATABASE)
+return f'Твои друзья: {friends_string}'
+elif query == 'Где все мои друзья?':
+unique_cities = set(DATABASE.values())
+cities_string = ', '.join(unique_cities)
+return f'Твои друзья в городах: {cities_string}'
+else:
+return '<неизвестный запрос>'
+
+print('Привет, я Анфиса!')
+
+print(process_anfisa('Сколько у меня друзей?'))
+
+print(process_anfisa('Кто все мои друзья?'))
+
+print(process_anfisa('Где все мои друзья?'))
+
+Задача 7
+DATABASE = {  
+    'Серёга': 'Омск',  
+    'Соня': 'Москва',  
+    'Миша': 'Москва',  
+    'Дима': 'Челябинск',  
+    'Алина': 'Красноярск',  
+    'Егор': 'Пермь',  
+    'Коля': 'Красноярск'  
+}  
+  
+# Новая функция, она возвращает правильное словосочетание, склоняя слово "друзья"   
+# в зависимости от того, какое число передано в аргументе friends_count  
+def format_friends_count(friends_count):  
+    if friends_count == 1:  
+        return '1 друг'  
+    elif 2 <= friends_count <= 4:  
+        return f'{friends_count} друга'  
+    else:  
+        return f'{friends_count} друзей'  
+  
+  
+def process_anfisa(query):  
+    if query == 'сколько у меня друзей?':  
+        count = len(DATABASE)  
+        # Вызовите функцию format_friends_count() и передайте в неё count.  
+        # Отредактируйте строку ниже: в ней должно использоваться выражение,   
+        # которое вернёт функция format_friends_count()  
+        return f'У тебя {format_friends_count(count)}.'  
+    elif query == 'кто все мои друзья?':  
+        friends_string = ', '.join(DATABASE)  
+        return f'Твои друзья: {friends_string}'  
+    elif query == 'где все мои друзья?':  
+        unique_cities = set(DATABASE.values())  
+        cities_string = ', '.join(unique_cities)  
+        return f'Твои друзья в городах: {cities_string}'  
+    else:  
+        return '<неизвестный запрос>'  
+  
+  
+print('Привет, я Анфиса!')  
+print(process_anfisa('сколько у меня друзей?'))  
+print(process_anfisa('кто все мои друзья?'))  
+print(process_anfisa('где все мои друзья?'))  
+print(process_anfisa('кто виноват?'))
+
+Задача 8
+DATABASE = {
+    'Серёга': 'Омск',
+    'Соня': 'Москва',
+    'Миша': 'Москва',
+    'Дима': 'Челябинск',
+    'Алина': 'Красноярск',
+    'Егор': 'Пермь',
+    'Коля': 'Красноярск'
+}
+def process_query(query):
+    elements = query.split(', ')
+    if elements[0] == 'Анфиса':
+        return process_anfisa(elements[1])
+    
+def format_friends_count(friends_count):
+    if friends_count == 1:
+        return '1 друг'
+    elif 2 <= friends_count <= 4:
+        return f'{friends_count} друга'
+    else:
+        return f'{friends_count} друзей'
+def process_anfisa(query):
+    if query == 'сколько у меня друзей?':
+        count = len(DATABASE)
+        format_friends_count(count)
+        return f'У тебя {format_friends_count(count)}.'
+    elif query == 'кто все мои друзья?':
+        friends_string = ', '.join(DATABASE)
+        return f'Твои друзья: {friends_string}'
+    elif query == 'где все мои друзья?':
+        unique_cities = set(DATABASE.values())
+        cities_string = ', '.join(unique_cities)
+        return f'Твои друзья в городах: {cities_string}'
+    else:
+        return ('<неизвестный запрос>')
+print('Привет, я Анфиса!')
+print(process_query('Анфиса, сколько у меня друзей?'))
+print(process_query('Анфиса, кто все мои друзья?'))
+print(process_query('Анфиса, где все мои друзья?'))
+print(process_query('Анфиса, кто виноват?'))
+print(process_query('Соня, ты где?'))
+
+Задача 9
+DATABASE = {
+    'Сергей': 'Омск',
+    'Соня': 'Москва',
+    'Миша': 'Москва',
+    'Дима': 'Челябинск',
+    'Алина': 'Красноярск',
+    'Егор': 'Пермь',
+    'Коля': 'Красноярск'
+}
+
+
+def format_count_friends(count_friends):
+    if count_friends == 1:
+        return '1 друг'
+    elif 2 <= count_friends <= 4:
+        return f'{count_friends} друга'
+    else:
+        return f'{count_friends} друзей'
+
+
+def process_anfisa(query):
+    if query == 'сколько у меня друзей?':
+        count_string = format_count_friends(len(DATABASE))
+        return f'У тебя {count_string}'
+    elif query == 'кто все мои друзья?':
+        friends_string = ', '.join(DATABASE.keys())
+        return f'Твои друзья: {friends_string}'
+    elif query == 'где все мои друзья?':
+        unique_cities = set(DATABASE.values())
+        cities_string = ', '.join(unique_cities)
+        return f'Твои друзья в городах: {cities_string}'
+    else:
+        return '<неизвестный запрос>'
+
+
+def runner():
+    queries = [
+        'Анфиса, сколько у меня друзей?',
+        'Анфиса, кто все мои друзья?',
+        'Анфиса, где все мои друзья?',
+        'Анфиса, кто виноват?',
+        'Коля, ты где?',
+        'Соня, что делать?',
+        'Антон, ты где?'
+    ]
+    for query in queries:
+        print(query, '-', process_query(query))
+
+def process_query(query):
+    tokens = query.split(', ')
+    name = tokens[0]
+    if name == 'Анфиса': return process_anfisa(tokens[1])
+    else: return process_friend(name, tokens[1])
+
+def process_friend(name, query):
+    if name in DATABASE:
+        if query == 'ты где?':
+            city = DATABASE[name]
+            print(f'{name} в городе {city}')
+            return f'{name} в городе {city}'
+
+        else: return '<неизвестный запрос>'
+    else: return f'У тебя нет друга по имени {name}'
+
+runner()
