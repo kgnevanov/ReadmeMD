@@ -1,0 +1,144 @@
+main.py/server
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# Пример данных, которые могут быть хранимы на сервере
+students = [
+    {"id": 1, "name": "Иванов Иван", "age": 20, "major": "Информатика"},
+    {"id": 2, "name": "Петров Петр", "age": 21, "major": "Математика"},
+    {"id": 3, "name": "Сидорова Анна", "age": 19, "major": "Физика"}
+]
+
+# Метод GET для получения списка всех студентов
+
+
+@app.route('/students', methods=['GET'])
+def get_students():
+    return jsonify(students)
+
+# Метод GET для получения данных конкретного студента по его идентификатору
+
+
+@app.route('/students/<int:id>', methods=['GET'])
+def get_student(id):
+    student = next((s for s in students if s["id"] == id), None)
+    if student:
+        return jsonify(student)
+    else:
+        return jsonify({"message": "Студент с указанным идентификатором не найден"}), 404
+
+# Метод POST для добавления нового студента
+
+
+@app.route('/students', methods=['POST'])
+def add_student():
+    new_student = request.json
+    students.append(new_student)
+    return jsonify({"message": "Студент успешно добавлен", "student": new_student}), 201
+
+# Метод PUT для обновления данных студента
+
+
+@app.route('/students/<int:id>', methods=['PUT'])
+def update_student(id):
+    student = next((s for s in students if s["id"] == id), None)
+    if student:
+        data = request.json
+        student.update(data)
+        return jsonify({"message": "Данные студента успешно обновлены", "student": student})
+    else:
+        return jsonify({"message": "Студент с указанным идентификатором не найден"}), 404
+
+# Метод DELETE для удаления студента по его идентификатору
+
+
+@app.route('/students/<int:id>', methods=['DELETE'])
+def delete_student(id):
+    global students
+    students = [s for s in students if s["id"] != id]
+    return jsonify({"message": "Студент успешно удален"})
+
+
+if __name__ == '__main__':
+    app.run(port=80, host="0.0.0.0", debug=False)
+
+
+
+main.py/client
+import requests
+
+# GET ------------------------------------------->
+
+BASE_URL = 'http://127.0.0.1:80/students'
+
+def get_all_students():
+    response = requests.get(BASE_URL)
+    return response.json()
+
+
+def get_student(student_id):
+    url = f'{BASE_URL}/{student_id}'
+    response = requests.get(url)
+    return response.json()
+
+all_students = get_all_students()
+print('Список студентов:', all_students)
+
+student_id = 1  
+student_info = get_student(student_id)
+print(f'Информация о студенте {student_id}:', student_info)
+
+#POST -------------------------------------------->
+
+def add_student(student_data):
+    response = requests.post(BASE_URL, json=student_data)
+    return response.json()
+
+new_student = {
+    "id": 4,
+    "name": "Новый Студент",
+    "age": 22,
+    "major": "Биология"
+}
+
+response = add_student(new_student)
+print(response)
+
+# PUT --------------------------------------------->
+
+import requests
+
+BASE_URL = 'http://127.0.0.1:80/students'
+
+def update_student(student_id, updated_data):
+    url = f'{BASE_URL}/{student_id}'
+    response = requests.put(url, json=updated_data)
+    return response.json()
+
+
+student_id = 4
+updated_student_data = {
+    "name": "Новый Студент",
+    "age": 23,
+    "major": "Химия"
+}
+
+response = update_student(student_id, updated_student_data)
+print(response)
+
+# DELETE ----------------------------------------->
+
+import requests
+
+BASE_URL = 'http://127.0.0.1:80/students'
+
+def delete_student(student_id):
+    url = f'{BASE_URL}/{student_id}'
+    response = requests.delete(url)
+    return response.json()
+
+student_id = 1
+
+response = delete_student(student_id)
+print(response)
